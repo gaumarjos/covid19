@@ -165,6 +165,9 @@ def load(keys):
     return df_cases, df_deaths, df_recovered, X, Y_cases, Y_deaths, Y_recovered, Label_cases, Label_deaths, Label_recovered
 
 
+"""
+Extract data for one specific country/region
+"""
 def country(df_cases, df_deaths, df_recovered, name):
     df = pd.DataFrame(index=df_cases.index)
     df = pd.concat([df, df_cases['date'], df_cases[name]], axis=1)
@@ -174,11 +177,23 @@ def country(df_cases, df_deaths, df_recovered, name):
     df['confirmed_marker'] = 'Confirmed'
     df['deaths_marker'] = 'Death'
     df['recovered_marker'] = 'Recovered'
-    #df = df.reset_index(drop=True)
+    df = df.reset_index(drop=False)
     return df
 
-def resetcountryday0(df):
+"""
+Trims the initial days with 0 cases from a country df
+"""
+def trim_country(df):
     df0 = df[df.confirmed > 0]
-    #df0 = df0.reset_index(drop=False)
+    df0 = df0.reset_index(drop=True)
+    df0['day'] = df0.date_n.apply(lambda x: (x - df0.date_n.min()))
+    
     #df0 = df0.rename(columns={"date_n": "day"})
     return df0
+
+def load_population():
+    return pd.read_csv("data/countries of the world.csv")
+
+def target_population(df, country):
+    country = country + ' '
+    return float(df[df.Country == country].Population)

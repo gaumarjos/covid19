@@ -134,12 +134,16 @@ def main1():
 
 def main2():
     df_cases, df_deaths, df_recovered, X, Y_cases, Y_deaths, Y_recovered, Label_cases, Label_deaths, Label_recovered =  load([])
+    df_pop = load_population()
     
     prova = country(df_cases, df_deaths, df_recovered, "Italy")
     print(prova)
     
-    prova2 = resetcountryday0(prova)
+    prova2 = trim_country(prova)
     print(prova2)
+    
+    #print(df_pop)
+    #print(target_population(df_pop, 'Italy'))
     
     return
 
