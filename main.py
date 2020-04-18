@@ -20,17 +20,15 @@ from itertools import compress
 import traceback
 from scipy.signal import lfilter, filtfilt
 #colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
-import altair as alt
 
-from load import *
-from model import *
-from model_epi import *
+from load import load
+from model import daynumber2date, run_time_model, run_time_model_timemachine, plot_timeseries, plot_timeseries2, plot_crossseries
 
 
 """
-Mains
+Main
 """
-def main1():
+def main():
     plt.close('all')
     
     # Caricamento dati
@@ -57,14 +55,6 @@ def main1():
          
     # Caricamento dati
     df_cases, df_deaths, df_recovered, X, Y_cases, Y_deaths, Y_recovered, Label_cases, Label_deaths, Label_recovered =  load(keys)
-    prova = country(df_cases, df_deaths, df_recovered, "Italy")
-    print(prova)
-    altair_plot_for_confirmed_and_deaths(prova).interactive()
-    
-    
-    #print(prova)
-    #plt.plot(prova.index, prova['confirmed'])
-    
     
     # Previsione casi
     days_ago = 0
@@ -72,7 +62,7 @@ def main1():
     X_pred_cases, Y_pred_cases, Fit_cases, Rmse_cases, End_date_cases = run_time_model(X, Y_cases, past=days_ago, horizon=90, threshold=threshold)
     X_pred_deaths, Y_pred_deaths, Fit_deaths, Rmse_deaths, End_date_deaths = run_time_model(X, Y_deaths, past=days_ago, horizon=90, threshold=threshold)
     
-    if 0:
+    if 1:
         plot_timeseries("Casi", True, threshold,\
                         X, Y_cases, X_pred_cases, Y_pred_cases, Label_cases)
     
@@ -133,21 +123,4 @@ def main1():
     return
 
 
-def main2():
-    df_cases, df_deaths, df_recovered, X, Y_cases, Y_deaths, Y_recovered, Label_cases, Label_deaths, Label_recovered =  load([])
-    df_pop = load_population()
-    
-    prova = country(df_cases, df_deaths, df_recovered, "Italy")
-    print(prova)
-    
-    prova2 = trim_country(prova)
-    print(prova2)
-    
-    #print(df_pop)
-    #print(target_population(df_pop, 'Italy'))
-    
-    return
-
-
-
-main2()
+main()
