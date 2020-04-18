@@ -4,7 +4,7 @@ Created on Sat Apr 18 12:53:12 2020
 
 Model
 
-@author: SalatiSt
+@author: Stefano Salati
 """
 
 

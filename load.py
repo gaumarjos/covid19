@@ -4,7 +4,7 @@ Created on Sat Apr 18 12:50:46 2020
 
 Caricamento base dati
 
-@author: SalatiSt
+@author: Stefano Salati
 """
 
 import pandas as pd
@@ -194,6 +194,6 @@ def trim_country(df):
 def load_population():
     return pd.read_csv("data/countries of the world.csv")
 
-def target_population(df, country):
+def get_target_population(df, country):
     country = country + ' '
     return float(df[df.Country == country].Population)

@@ -2,7 +2,7 @@
 """
 Main
 
-@author: SalatiSt
+@author: Stefano Salati
 """
 
 import pandas as pd
@@ -24,6 +24,7 @@ import altair as alt
 
 from load import *
 from model import *
+from model_epi import *
 
 
 """

@@ -4,8 +4,42 @@ Created on Sat Apr 18 14:31:26 2020
 
 Epidemiological models taken from: https://www.kaggle.com/volpatto/covid-19-study-with-epidemiology-models
 
-@author: SalatiSt
+@author: Stefano Salati
 """
+
+
+import pandas as pd
+import numpy as np
+from datetime import datetime,timedelta
+from sklearn.metrics import mean_squared_error
+from scipy.optimize import curve_fit
+from scipy.optimize import fsolve
+import datetime as dt
+import matplotlib.pyplot as plt
+from matplotlib.ticker import FuncFormatter
+#import matplotlib
+#%matplotlib inline
+from itertools import compress
+import traceback
+from scipy.signal import lfilter, filtfilt
+#colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
+import altair as alt
+from numba import jit # to accelerate ODE system RHS evaluations
+#import theano # to control better pymc3 backend and write a wrapper
+#import theano.tensor as t # for the wrapper to a custom model to pymc3
+#import pymc3 as pm # for uncertainty quantification and model calibration
+from scipy.integrate import solve_ivp # to solve ODE system
+
+seed = 12345 # for the sake of reproducibility :)
+np.random.seed(seed)
+plt.style.use('seaborn-talk') # beautify the plots!
+THEANO_FLAGS='optimizer=fast_compile' # A theano trick
+
+
+"""
+Plot functions
+"""
+
 
 
 """
